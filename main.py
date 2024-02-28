@@ -68,7 +68,8 @@ async def extract_texts(file: UploadFile):
         filtered_similarity =[]
     create_presentation(data_dict, presentation.title,presentation.author, filtered_similarity)
     display_slides()
-    return {"message": "Slide created successfully!"}
+    flag = 1
+    return {"message": "Slide created successfully!"}, flag
 
 
 @app.post("/get_data_from_url")
