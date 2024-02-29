@@ -1,14 +1,15 @@
+import path
 def display_slides():
     import win32com.client
     import os
 
     # Specify the full path to the PowerPoint presentation
     for root,dir,files in os.walk('slides'):
-        presentation_path = r"C:\Users\ACER\Desktop\Frontend\slides"+f"\{files[0]}"
+        presentation_path = path.slides_path+f"\{files[0]}"
     print(presentation_path)
     # Create a PowerPoint application object
     Application = win32com.client.Dispatch("PowerPoint.Application")
-    slides_folder = r"C:\Users\ACER\Desktop\Frontend\display"
+    slides_folder = path.display_path
     try:
         # Open the presentation without making it visible
         Presentation = Application.Presentations.Open(presentation_path, WithWindow=False)

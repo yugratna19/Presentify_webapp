@@ -27,7 +27,7 @@ def create_presentation(data_dict, presentation_title, presentation_author, filt
 
     # title_slide_layout = prs.slide_layouts[0]
     bullet_slide_layout = prs.slide_layouts[1]
-    image_slide_layout = prs.slide_layouts[6]
+    image_slide_layout = prs.slide_layouts[5]
 
     # addding page 1
     # slide1 = add_slide(prs, title_slide_layout)
@@ -65,7 +65,7 @@ def create_presentation(data_dict, presentation_title, presentation_author, filt
         prsentation_content = bullet_point(content)
         sentences = split_sentences(prsentation_content)
 
-        slide2.shapes.placeholders[1].text_frame.text = sentences[0]
+        slide2.shapes.placeholders[1].text_frame.text = sentences[1]
 
         slide2.placeholders[1].height = Inches(4.84)
         slide2.placeholders[1].width = Inches(12.36)
@@ -74,12 +74,12 @@ def create_presentation(data_dict, presentation_title, presentation_author, filt
 
         customizer_bullet_point(slide2, 1, 0, 'Arial', 28, False, bullet_color)
 
-        for i in range(1, len(sentences)):
+        for i in range(2, len(sentences)):
             p = slide2.shapes.placeholders[1].text_frame.add_paragraph()
             p.text = sentences[i]
             p.level = 0
             # font style for bullet
-            customizer_bullet_point(slide2, 1, i, 'Arial', 28, False, bullet_color)
+            customizer_bullet_point(slide2, 1, i-1, 'Arial', 28, False, bullet_color)
 
         # font style for title
         customizer_topics(slide2, 0, 'Arial', 36, True, bullet_title_color)
@@ -88,12 +88,21 @@ def create_presentation(data_dict, presentation_title, presentation_author, filt
                 image_index = item['Index']
                 img_path = "images/"+str(image_index)+".jpg"
                 slide3 = add_slide(prs, image_slide_layout)
-                height = Inches(6)
+                slide3.placeholders[0].text = title
+                slide2.placeholders[0].height = Inches(1.44)
+                slide2.placeholders[0].width = Inches(12.36)
+                slide2.placeholders[0].left = Inches(0.74)
+                slide2.placeholders[0].top = Inches(0.67)
+                
+                customizer_topics(slide3, 0, 'Arial', 44, True, title_color)
+                
+                height = Inches(5)
                 width = Inches(8)
+                left = Inches(1.3)
+                top = Inches(1.6)
+                
                 img = slide3.shapes.add_picture(img_path, 0,0,height = height,width = width)
-                # Set the image position to the center
-                left = (prs.slide_width - img.width) / 2
-                top = (prs.slide_height - img.height) / 2
+        
                 img.left = int(left)
                 img.top = int(top)
 

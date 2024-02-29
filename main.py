@@ -1,7 +1,9 @@
 import pdftitle
 import pdfplumber
+import path
 from bs4 import BeautifulSoup
 
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI, UploadFile, HTTPException
 from classobjects import PDF, PresentationData
 from pdftools import *
@@ -12,6 +14,7 @@ from image_extraction import image_extraction
 from cosine_similarity import cosine_similarity
 from create_presentation import create_presentation
 from image_slides import display_slides
+from pydantic import BaseModel
 
 pdf = PDF()
 presentation = PresentationData()
@@ -20,6 +23,23 @@ app = FastAPI()
 
 MAX_FILE_SIZE = 1024 * 1024 * 12
 
+app.add_middleware(
+    CORSMiddleware, 
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Define a Pydantic model for the incoming JSON data
+class ThemeSelectData(BaseModel):
+    theme: str
+
+@app.post('/theme-select')
+async def theme_select(data: ThemeSelectData):
+    selected_theme = data.theme
+    # Process the received value here
+    return {"message": "Value received: {}".format(selected_theme)}
 
 @app.post('/extract-text')
 async def extract_texts(file: UploadFile):
@@ -60,7 +80,7 @@ async def extract_texts(file: UploadFile):
                  'Methodology': data.methodology,
                  'Results': data.results,
                  'Conclusion': data.conclusions}
-    image_caption_list = image_extraction(r'C:\Users\ACER\Desktop\Presentify_webapp\temp_pdf.pdf')
+    image_caption_list = image_extraction(path.temp_path)
     if image_caption_list != []:
         similarity = cosine_similarity(data_dict, image_caption_list)
         filtered_similarity = [item for item in similarity if all(value > 0.25 for value in item.values())]
@@ -103,7 +123,7 @@ async def get_data_fromI_url(arxiv_url: str):
                  'Methodology': data.methodology,
                  'Results': data.results,
                  'Conclusion': data.conclusions}
-    image_caption_list = image_extraction(r'C:\Users\ACER\Desktop\Presentify_webapp\temp_pdf.pdf')
+    image_caption_list = image_extraction(path.temp_path)
     if image_caption_list != []:
         similarity = cosine_similarity(data_dict, image_caption_list)
         filtered_similarity = [item for item in similarity if all(value > 0.25 for value in item.values())]
