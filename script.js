@@ -35,29 +35,9 @@ switchToFileUploaderButton.addEventListener("click", () => {
   fileUploader1.classList.remove("inactive-section");
 });
 
-function submission(event) {
-  event.preventDefault(); // Prevent the default form submission behavior
-  showLoadingScreen();
+function submission() {
   form.action = "http://127.0.0.1:8000/extract-text";
   form.submit();
-  fetch("http://127.0.0.1:8000/extract-text", {
-    method: "POST",
-    body: formData
-  })
-  .then(response => response.json())
-  .then(data => {
-    if (data.flag === 1) {
-      // Flag is 1, do something
-      console.log("Slide created successfully!");
-    } else {
-      // Flag is not 1, handle accordingly
-      console.log("Error: Slide creation failed!");
-    }
-  })
-  .catch(error => {
-    // Handle errors
-    console.error("Error:", error);
-  });
 }
 
 fileInput.onchange = ({ target }) => {
@@ -139,31 +119,30 @@ const form1 = document.getElementById("check");
 const userInputField = document.getElementById("arxivLink");
 
 form1.addEventListener("submit", (event) => {
-  showLoadingScreen();
   const userInput = userInputField.value.trim(); // Trim extra spaces
-  form1.action = "http://127.0.0.1:8000/get_data_from_url?arxiv_url=" + userInput;
-  
-  fetch("http://127.0.0.1:8000/extract-text", {
-    method: "POST",
-    body: formData
-  })
-  .then(response => response.json())
-  .then(data => {
-    if (data.flag === 1) {
-      // Flag is 1, do something
-      console.log("Slide created successfully!");
-    } else {
-      // Flag is not 1, handle accordingly
-      console.log("Error: Slide creation failed!");
-    }
-  })
-  .catch(error => {
-    // Handle errors
-    console.error("Error:", error);
-  });
 
+  // Validate user input if necessary (e.g., check for invalid characters)
+
+  // Determine the appropriate action URL based on user input
+
+  // Set the form's action attribute to the chosen URL
+  form1.action =
+    "http://127.0.0.1:8000/get_data_from_url?arxiv_url=" + userInput;
+
+  // Optionally, prevent default form submission to allow further processing
+  // if needed (e.g., for AJAX requests)
+  // event.preventDefault();
 });
 
+//  function openNav() {
+//   document.getElementById("mySidenav").style.width = "250px";
+//   document.getElementById("main").style.marginLeft = "250px";
+// }
+
+// function closeNav() {
+//   document.getElementById("mySidenav").style.width = "0";
+//   document.getElementById("main").style.marginLeft= "0";
+// }
 function openNav() {
   document.getElementById("mySidenav").style.width = "100%"; // Set width to 100% to cover the whole webpage
   document.getElementById("mySidenav").style.height = "98vh"; // Set height to 90% of viewport height
@@ -211,9 +190,9 @@ function fetchImages() {
     .then((response) => response.text())
     .then((data) => {
       // Count the number of image files
-      const imageFiles = data.match(
-        /<a href="([^"]+\.(?:jpg|jpeg|png|gif))"/gi
-      );
+      // const imageFiles = data.match(
+      //   /<a href="([^"]+\.(?:jpg|jpeg|png|gif))"/gi
+      // );
       numImages = imageFiles ? imageFiles.length : 0;
 
       // Use the count here or call a function passing the count
@@ -221,7 +200,7 @@ function fetchImages() {
 
       // Once we have the count, populate the images array
       for (let i = 1; i <= numImages; i++) {
-        imageArray.push(`${folderPath}Slide_${i}.jpg`);
+        imageArray.push(`${folderPath}${i}.png`);
       }
 
       // Show the first image initially
@@ -274,13 +253,3 @@ function setImage(imageName) {
   })
   .catch(error => console.error("Error:", error));
 }
-
-function showLoadingScreen() {
-  document.getElementById('loading_screen').style.display = 'flex';
-}
-
-function hideLoadingScreen() {
-  document.getElementById('loading_screen').style.display = 'none';
-}
-
-

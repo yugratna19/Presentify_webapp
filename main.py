@@ -26,7 +26,7 @@ async def extract_texts(file: UploadFile):
     if file.size > MAX_FILE_SIZE:
         raise HTTPException(status_code=413, detail="File is too large")
     pdf_bytes = await file.read()
-
+    print("kchamerelal")
     # Optionally save the PDF temporarily
     with open('temp_pdf.pdf', 'wb') as f:
         f.write(pdf_bytes)
@@ -60,7 +60,7 @@ async def extract_texts(file: UploadFile):
                  'Methodology': data.methodology,
                  'Results': data.results,
                  'Conclusion': data.conclusions}
-    image_caption_list = image_extraction(r'C:\Users\ACER\Desktop\Frontend\temp_pdf.pdf')
+    image_caption_list = image_extraction(r'C:\Users\ACER\Desktop\Presentify_webapp\temp_pdf.pdf')
     if image_caption_list != []:
         similarity = cosine_similarity(data_dict, image_caption_list)
         filtered_similarity = [item for item in similarity if all(value > 0.25 for value in item.values())]
@@ -68,8 +68,7 @@ async def extract_texts(file: UploadFile):
         filtered_similarity =[]
     create_presentation(data_dict, presentation.title,presentation.author, filtered_similarity)
     display_slides()
-    flag = 1
-    return {"message": "Slide created successfully!"}, flag
+    return {"message": "Slide created successfully!"}
 
 
 @app.post("/get_data_from_url")
@@ -104,7 +103,7 @@ async def get_data_fromI_url(arxiv_url: str):
                  'Methodology': data.methodology,
                  'Results': data.results,
                  'Conclusion': data.conclusions}
-    image_caption_list = image_extraction(r'C:\Users\ACER\Desktop\Frontend\temp_pdf.pdf')
+    image_caption_list = image_extraction(r'C:\Users\ACER\Desktop\Presentify_webapp\temp_pdf.pdf')
     if image_caption_list != []:
         similarity = cosine_similarity(data_dict, image_caption_list)
         filtered_similarity = [item for item in similarity if all(value > 0.25 for value in item.values())]
