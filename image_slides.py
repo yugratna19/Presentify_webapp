@@ -21,7 +21,7 @@ def display_slides():
 
         # Export each slide as an image
         for i, slide in enumerate(Presentation.Slides):
-            image_path = os.path.join(slides_folder, f"Slide_{i + 1}.png")
+            image_path = os.path.join(slides_folder, f"{i + 1}.png")
             slide.Export(image_path, "PNG")
 
         # Close the presentation

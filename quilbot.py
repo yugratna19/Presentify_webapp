@@ -8,10 +8,10 @@ def bullet_point(text):
     import pyperclip
     import time
 
-    options = Options()
-    options.add_argument("--headless")    
+    # options = Options()
+    # options.add_argument("--headless")    
     
-    driver = webdriver.Chrome(options=options)
+    driver = webdriver.Chrome()#options=options
     driver.get('https://quillbot.com/summarize')
     
     # Wait until the 'bullet points' button is clickable

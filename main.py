@@ -1,8 +1,9 @@
 import pdftitle
 import pdfplumber
 import path
-from bs4 import BeautifulSoup
+import pptx
 
+from bs4 import BeautifulSoup
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI, UploadFile, HTTPException
 from classobjects import PDF, PresentationData
@@ -34,12 +35,9 @@ app.add_middleware(
 # Define a Pydantic model for the incoming JSON data
 class ThemeSelectData(BaseModel):
     theme: str
-
-@app.post('/theme-select')
-async def theme_select(data: ThemeSelectData):
-    selected_theme = data.theme
-    # Process the received value here
-    return {"message": "Value received: {}".format(selected_theme)}
+    
+data_dict ={}
+filtered_similarity = []
 
 @app.post('/extract-text')
 async def extract_texts(file: UploadFile):
@@ -86,7 +84,9 @@ async def extract_texts(file: UploadFile):
         filtered_similarity = [item for item in similarity if all(value > 0.25 for value in item.values())]
     else:
         filtered_similarity =[]
-    create_presentation(data_dict, presentation.title,presentation.author, filtered_similarity)
+    theme_select_path = r'theme\default.pptx'    
+    prs = pptx.Presentation(theme_select_path)
+    create_presentation(prs,data_dict, presentation.title,presentation.author, filtered_similarity)
     display_slides()
     return {"message": "Slide created successfully!"}
 
@@ -133,6 +133,16 @@ async def get_data_fromI_url(url: str):
         filtered_similarity = [item for item in similarity if all(value > 0.25 for value in item.values())]
     else:
         filtered_similarity =[]
-    create_presentation(data_dict, presentation.title,presentation.author, filtered_similarity)
+    theme_select_path = r'theme\default.pptx'    
+    prs = pptx.Presentation(theme_select_path)
+    create_presentation(prs,data_dict, presentation.title,presentation.author, filtered_similarity)
     display_slides()
     return {"message": "Slide created successfully!"}
+
+@app.post('/theme-select')
+async def theme_select(data: ThemeSelectData):
+    selected_theme = data.theme
+    theme_select_path = 'theme'rf'\{selected_theme}.pptx'    
+    prs = pptx.Presentation(theme_select_path)
+    create_presentation(prs,data_dict, presentation.title,presentation.author, filtered_similarity)
+    return {"message": "Value received: {}".format(selected_theme)}
