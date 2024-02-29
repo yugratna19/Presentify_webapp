@@ -92,30 +92,34 @@ async def extract_texts(file: UploadFile):
 
 
 @app.post("/get_data_from_url")
-async def get_data_fromI_url(arxiv_url: str):
-    response = requests.get(arxiv_url)
-    response = response.content
-    soup = BeautifulSoup(response, 'html.parser')
+async def get_data_fromI_url(url: str):
+    if 'https://arxiv.org/abs' in url:
+        response = requests.get(url)
+        response = response.content
+        soup = BeautifulSoup(response, 'html.parser')
 
-    presentation.title = soup.find('h1', class_='title mathjax').text
-    presentation.author = soup.find('div', class_='authors').text
-    pdf_link = arxiv_url.replace('abs', 'pdf')
-    with open('temp_pdf.pdf', 'wb') as f:
-        f.write(requests.get(pdf_link).content)
-    pdf.textdata = clean_text(read_pdf_from_url(pdf_link))
-    presentation.title = presentation.title.replace('Title:', '')
-    presentation.author = presentation.author.replace('Authors:', '')
+        presentation.title =  soup.find('h1', class_='title mathjax').text
+        presentation.author = soup.find('div', class_='authors').text
+        pdf_link = url.replace('abs', 'pdf')
+        presentation.title = presentation.title.replace('Title:','')
+        presentation.author = presentation.author.replace('Authors:','')
+        pdf.textdata = clean_text(read_pdf_from_url(pdf_link))
+    else:
+        pdf_link = url
+        pdf.textdata = clean_text(read_pdf_from_url(pdf_link))
+        presentation.title = pdftitle.get_title_from_file('temp_pdf.pdf')
+        presentation.author = pdfplumber.open('temp_pdf.pdf').metadata['Author']
     gemini_data = PresentationData()
-
+    # gemini_data = gemini_summarize(pdf.textdata)
     try:
         gemini_data = gemini_summarize(pdf.textdata)
-        presentation.introduction = clean_text(gemini_data.introduction)
-        presentation.literature_review = clean_text(gemini_data.literature_review)
-        presentation.methodology = clean_text(gemini_data.methodology)
-        presentation.results = clean_text(gemini_data.results)
-        presentation.conclusions = clean_text(gemini_data.conclusions)
+        presentation.introduction = gemini_data.introduction
+        presentation.literature_review = gemini_data.literature_review
+        presentation.methodology = gemini_data.methodology
+        presentation.results = gemini_data.results
+        presentation.conclusions = gemini_data.conclusions
     except:
-        return {'error': 'couldnt extract data'}
+        return {'error':'couldnt extract data'}
     data = PresentationData()
     data = summarize(gemini_data)
     data_dict = {'Introduction': data.introduction,

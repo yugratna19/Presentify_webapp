@@ -19,7 +19,7 @@ def create_presentation(data_dict, presentation_title, presentation_author, filt
     bullet_title_color = "black"
     background_color = "white"
 
-    path = r'theme\theme2.pptx'
+    path = r'theme\default.pptx'    
     prs = pptx.Presentation(path)
 
     # prs.slide_width = Inches(16)
