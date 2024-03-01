@@ -244,9 +244,9 @@ function setImage(imageName) {
 }
 function submission() {
   loadingScreen = document.getElementById("loading_screen");
+  loadingScreen.style.display = "flex";
   form.action = "http://127.0.0.1:8000/extract-text";
   form.submit();
-  loadingScreen.style.display = "block";
   window.addEventListener('message', function(event) {
       const message = JSON.parse(event.data);
       // Check if the message is the one you're expecting

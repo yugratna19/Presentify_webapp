@@ -1,9 +1,19 @@
 import fitz
 import requests
 import re
-
+import os 
+import glob
 
 def read_pdf(pdf_path):
+    files = glob.glob('images/*')
+    for f in files: 
+        os.remove(f)
+    files =  glob.glob('display/*')
+    for f in files:
+        os.remove(f)
+    # files = glob.glob('slides/*')
+    # for f in files:
+    #     os.remove(f)
     pdf_document = fitz.open(pdf_path, filetype="pdf")
     text = ''
     for page_num in range(pdf_document.page_count):

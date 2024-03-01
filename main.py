@@ -37,7 +37,7 @@ app.add_middleware(
 # Define a Pydantic model for the incoming JSON data
 class ThemeSelectData(BaseModel):
     theme: str
-    
+
 @app.post('/extract-text')
 async def extract_texts(file: UploadFile):
     if file.size > MAX_FILE_SIZE:
