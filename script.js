@@ -190,9 +190,9 @@ function fetchImages() {
     .then((response) => response.text())
     .then((data) => {
       // Count the number of image files
-      // const imageFiles = data.match(
-      //   /<a href="([^"]+\.(?:jpg|jpeg|png|gif))"/gi
-      // );
+      const imageFiles = data.match(
+        /<a href="([^"]+\.(?:jpg|jpeg|png|gif))"/gi
+      );
       numImages = imageFiles ? imageFiles.length : 0;
 
       // Use the count here or call a function passing the count

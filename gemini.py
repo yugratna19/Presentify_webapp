@@ -17,7 +17,7 @@ def sjoin(x): return ';'.join(x[x.notnull()].astype(str))
 
 
 def gemini_summarize(textdata):
-    API_KEY = 'AIzaSyBdUVBrjuXIn8aGYYp-bEg-EYK4Y2tGvMw'  # add key here
+    API_KEY = 'AIzaSyBOGUDvHuZ86S_ajLyBKftetxsuWL5bTo8'  # add key here
     genai.configure(api_key=API_KEY)
 
     model = genai.GenerativeModel('gemini-pro')
@@ -50,6 +50,7 @@ def gemini_summarize(textdata):
                 dict = json.loads(response.text)
                 break
             except:
+                print(response.text)
                 print("Error Occured while extracting using Gemini")
                 dict = {}
         df = pd.DataFrame(dict, index=[0])

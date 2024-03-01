@@ -25,3 +25,6 @@ class TextSummaryRequest(BaseModel):
 
 class TextSummaryResponse(BaseModel):
     summary: str
+
+class ImgCap(BaseModel):
+    imgcap : list = None

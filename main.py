@@ -5,20 +5,22 @@ import pptx
 
 from bs4 import BeautifulSoup
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi import FastAPI, UploadFile, HTTPException
-from classobjects import PDF, PresentationData
+from fastapi import FastAPI, UploadFile, HTTPException, Request
+from classobjects import PDF, PresentationData,ImgCap
 from pdftools import *
 from pptxtools import *
 from gemini import gemini_summarize
 from presentify_model import summarize
 from image_extraction import image_extraction
 from cosine_similarity import cosine_similarity
-from create_presentation import create_presentation
+from create_presentation import create_presentation,create_presentation_themechange
 from image_slides import display_slides
 from pydantic import BaseModel
 
 pdf = PDF()
 presentation = PresentationData()
+presentation1 = PresentationData()
+imgcap = ImgCap()
 
 app = FastAPI()
 
@@ -36,9 +38,6 @@ app.add_middleware(
 class ThemeSelectData(BaseModel):
     theme: str
     
-data_dict ={}
-filtered_similarity = []
-
 @app.post('/extract-text')
 async def extract_texts(file: UploadFile):
     if file.size > MAX_FILE_SIZE:
@@ -73,6 +72,7 @@ async def extract_texts(file: UploadFile):
         return {'error': 'couldnt extract data'}
     data = PresentationData()
     data = summarize(gemini_data)
+    presentation1 = data
     data_dict = {'Introduction': data.introduction,
                  'Literature Review': data.literature_review,
                  'Methodology': data.methodology,
@@ -84,12 +84,27 @@ async def extract_texts(file: UploadFile):
         filtered_similarity = [item for item in similarity if all(value > 0.25 for value in item.values())]
     else:
         filtered_similarity =[]
+    imgcap.imgcap = filtered_similarity
     theme_select_path = r'theme\default.pptx'    
-    prs = pptx.Presentation(theme_select_path)
-    create_presentation(prs,data_dict, presentation.title,presentation.author, filtered_similarity)
+    prs1 = pptx.Presentation(theme_select_path)
+    create_presentation(prs1,data_dict, presentation.title,presentation.author, filtered_similarity)
     display_slides()
-    return {"message": "Slide created successfully!"}
+    return {"message": "Default Slide created successfully!"}
 
+@app.post('/theme-select')
+async def theme_select(theme_data: ThemeSelectData):
+    selected_theme = theme_data.theme
+    theme_select_path = 'theme'+ rf'\{selected_theme}.pptx'
+    prs2 = pptx.Presentation(theme_select_path)
+    data = presentation1
+    data_dict = {'Introduction': data.introduction,
+                 'Literature Review': data.literature_review,
+                 'Methodology': data.methodology,
+                 'Results': data.results,
+                 'Conclusion': data.conclusions}
+    create_presentation_themechange(prs2,data_dict, presentation.title,presentation.author,  imgcap.imgcap)
+    display_slides()
+    return {"message": "Slide Created in: {}".format(selected_theme)}
 
 @app.post("/get_data_from_url")
 async def get_data_fromI_url(url: str):
@@ -139,10 +154,3 @@ async def get_data_fromI_url(url: str):
     display_slides()
     return {"message": "Slide created successfully!"}
 
-@app.post('/theme-select')
-async def theme_select(data: ThemeSelectData):
-    selected_theme = data.theme
-    theme_select_path = 'theme'rf'\{selected_theme}.pptx'    
-    prs = pptx.Presentation(theme_select_path)
-    create_presentation(prs,data_dict, presentation.title,presentation.author, filtered_similarity)
-    return {"message": "Value received: {}".format(selected_theme)}
