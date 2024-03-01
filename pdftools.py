@@ -5,12 +5,12 @@ import os
 import glob
 
 def read_pdf(pdf_path):
-    files = glob.glob('images/*')
-    for f in files: 
-        os.remove(f)
-    files =  glob.glob('display/*')
-    for f in files:
-        os.remove(f)
+    # files = glob.glob('images/*')
+    # for f in files: 
+    #     os.remove(f)
+    # files =  glob.glob('display/*')
+    # for f in files:
+    #     os.remove(f)
     # files = glob.glob('slides/*')
     # for f in files:
     #     os.remove(f)
