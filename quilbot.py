@@ -15,13 +15,13 @@ def bullet_point(text):
     driver.get('https://quillbot.com/summarize')
     
     # Wait until the 'bullet points' button is clickable
-    by_bullet_points_button = WebDriverWait(driver, 10).until(
+    by_bullet_points_button = WebDriverWait(driver, 30).until(
         EC.element_to_be_clickable((By.XPATH, '//*[@id="root-client"]/div/div[3]/section[1]/div/div/div/section/div[2]/div/div/div[2]/div[1]/div[2]/div[1]/div/div/div[2]/div/div/button[2]'))
     )
     by_bullet_points_button.click()
     
     # Wait until the input box is visible and send text
-    input_box = WebDriverWait(driver, 10).until(
+    input_box = WebDriverWait(driver, 30).until(
         EC.visibility_of_element_located((By.ID, 'inputBoxSummarizer'))
     )
     pyperclip.copy(text)
@@ -29,7 +29,7 @@ def bullet_point(text):
 
     # Wait until the summarize button is clickable and click it
     time.sleep(10)
-    summarize_button = WebDriverWait(driver, 10).until(
+    summarize_button = WebDriverWait(driver, 30).until(
         EC.element_to_be_clickable((By.XPATH, '//*[@id="root-client"]/div/div[3]/section[1]/div/div/div/section/div[2]/div/div/div[2]/div[2]/div[3]/div[1]/div/div/div/div[2]/div/div/span/div/button'))
     )
     summarize_button.click()
