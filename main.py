@@ -14,7 +14,7 @@ from presentify_model import summarize
 from image_extraction import image_extraction
 from cosine_similarity import cosine_similarity
 from create_presentation import create_presentation,create_presentation_themechange
-from image_slides import display_slides
+from slide_display import display_slides
 from pydantic import BaseModel
 
 pdf = PDF()
