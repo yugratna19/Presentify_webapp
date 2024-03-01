@@ -46,7 +46,7 @@
 
     <div class="wrapper">
       <div class="active-section colorful" id="file-uploader">
-        <header>File Uploader JavaScript</header>
+        <header>File Uploader</header>
         <form enctype="multipart/form-data" method="post">
           <i class="fas fa-cloud-upload-alt"></i>
           <input
@@ -71,18 +71,22 @@
       <!-- Move the "Paste ArXiv Link" section here -->
       <div class="inactive-section colorful" id="link-verifier">
         <form id="check" enctype="multipart/form-data" method="post">
-          <label for="arxivLink">Paste ArXiv Link Below:</label>
+          <label for="arxivLink">Paste Link Below:</label>
           <input
             type="text"
             id="arxivLink"
-            placeholder="Enter the link of from ArXiv.org"
+            placeholder="Enter the link"
           />
           <button onclick="validateLink()">Validate</button>
         </form>
         <button id="switch-to-file-uploader">Switch to File Uploader</button>
       </div>
     </div>
-
+    <div id="loading_screen">
+      <div id="loader"></div>
+      <p>Please Wait...<br>Generating slides can take upto 5 minutes...<br>Feel free to browse other sites as you wait. We
+        will alert you when output is ready.</p>
+    </div>
     <script src="script.js"></script>
   </body>
 </html>

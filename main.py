@@ -43,7 +43,7 @@ async def extract_texts(file: UploadFile):
     if file.size > MAX_FILE_SIZE:
         raise HTTPException(status_code=413, detail="File is too large")
     pdf_bytes = await file.read()
-    print("kchamerelal")
+    print("Starting Website.....")
     # Optionally save the PDF temporarily
     with open('temp_pdf.pdf', 'wb') as f:
         f.write(pdf_bytes)

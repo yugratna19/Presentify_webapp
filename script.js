@@ -35,22 +35,11 @@ switchToFileUploaderButton.addEventListener("click", () => {
   fileUploader1.classList.remove("inactive-section");
 });
 
-function submission() {
-  form.action = "http://127.0.0.1:8000/extract-text";
-  form.submit();
-}
+// function submission() {
+//   form.action = "http://127.0.0.1:8000/extract-text";
+//   form.submit();
+// }
 
-fileInput.onchange = ({ target }) => {
-  let file = target.files[0];
-  if (file) {
-    let fileName = file.name;
-    if (fileName.length >= 12) {
-      let splitName = fileName.split(".");
-      fileName = splitName[0].substring(0, 13) + "... ." + splitName[1];
-    }
-    uploadFile(fileName);
-  }
-};
 
 function uploadFile(name) {
   let xhr = new XMLHttpRequest();
@@ -253,3 +242,39 @@ function setImage(imageName) {
   })
   .catch(error => console.error("Error:", error));
 }
+function submission() {
+  loadingScreen = document.getElementById("loading_screen");
+  form.action = "http://127.0.0.1:8000/extract-text";
+  form.submit();
+  loadingScreen.style.display = "block";
+  window.addEventListener('message', function(event) {
+      const message = JSON.parse(event.data);
+      // Check if the message is the one you're expecting
+      if (message.message === 'Default Slide created successfully!') {
+        // Hide the loading screen
+        loadingScreen.style.display = "none";
+      }
+    });
+}
+
+fileInput.onchange = ({ target }) => {
+  let file = target.files[0];
+  if (file) {
+    let fileSizeMB = file.size / (1024 * 1024); // File size in MB
+    let fileName = file.name;
+
+    if (fileSizeMB > 12) {
+      alert("File size exceeds 12 MB limit. Please choose a smaller file.");
+      // Clear the file input
+      fileInput.value = "";
+      return;
+    }
+
+    if (fileName.length >= 12) {
+      let splitName = fileName.split(".");
+      fileName = splitName[0].substring(0, 13) + "... ." + splitName[1];
+    }
+
+    uploadFile(fileName);
+  }
+};

@@ -123,7 +123,6 @@ def create_presentation(prs,data_dict, presentation_title, presentation_author, 
     presentation2.methodology = data_dict['Methodology']
     presentation2.results = data_dict['Results']
     presentation2.conclusions = data_dict['Conclusion']
-    print('slide successfully created')
 
 def create_presentation_themechange(prs,data_dict, presentation_title, presentation_author, filtered_similarity):
 

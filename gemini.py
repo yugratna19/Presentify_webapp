@@ -73,4 +73,4 @@ def gemini_summarize(textdata):
         model_data.conclusions = df['conclusion'][0]
         return model_data
     else:
-        print("size thulo vayo")
+        return {'error': 'Token limit exceeded'}
