@@ -278,3 +278,7 @@ fileInput.onchange = ({ target }) => {
     uploadFile(fileName);
   }
 };
+
+function goBack() {
+  window.location.href = "index.html";
+}

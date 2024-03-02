@@ -13,13 +13,13 @@
 <body>
 <button class="button back-button" id="back-button" onclick="goBack()">Go Back</button>
 <div id="image-container">
-    <img id="slider-image" src="display\2.png" display\1.pngalt="Image" />
-    <div class="buttons">
-        <div class="next-prev">
-            <button class="button" onclick="prevImage()">Prev</button>
-            <button class="button" onclick="nextImage()">Next</button>
-        </div>
-    </div>
+  <img id="slider-image" src="" alt="Image" onchange="showImage(1)"/>
+  <div class="buttons">
+      <div class="next-prev">
+          <button class="button" onclick="prevImage()">Prev</button>
+          <button class="button" onclick="nextImage()">Next</button>
+      </div>
+  </div>
 </div>
 <div class="image-container">
   <img src="themeimage/default.png" class="image" onclick="setImage('default')">
