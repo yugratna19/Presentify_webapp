@@ -17,6 +17,7 @@ background_color = "white"
 def remove_extra_spaces(text):
     return ' '.join(text.split())
 
+presentation_filename = 'empty.pptx'
 
 def create_presentation(prs,data_dict, presentation_title, presentation_author, filtered_similarity):
 
