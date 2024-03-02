@@ -367,3 +367,33 @@ img {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+.back-button{
+  position: fixed;
+  top: 1vw;
+  right: 2vw;
+  z-index: 9999; /* to ensure it's on top of other content */
+}
+
+
+.download-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  background-color:rgb(106, 198, 201);
+  /* border: 2px solid #007bff; */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: fixed;
+  top: 80vh;
+  left: 35%;
+  transform: translateX(-50%);
+}
+
+.download-btn:hover {
+  background-color:rgb(62, 140, 140);;
+  border-color:black;
+}
