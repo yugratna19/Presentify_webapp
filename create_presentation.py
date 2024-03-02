@@ -66,7 +66,7 @@ def create_presentation(prs,data_dict, presentation_title, presentation_author, 
         prsentation_content = bullet_point(content) #theme wala file ma pathau
         sentences = split_sentences(prsentation_content)
         data_dict[title] = prsentation_content
-        slide2.shapes.placeholders[1].text_frame.text = sentences[1]
+        slide2.shapes.placeholders[1].text_frame.text = sentences[0]
 
         slide2.placeholders[1].height = Inches(4.84)
         slide2.placeholders[1].width = Inches(12.36)
@@ -75,12 +75,12 @@ def create_presentation(prs,data_dict, presentation_title, presentation_author, 
 
         customizer_bullet_point(slide2, 1, 0, 'Arial', 28, False, bullet_color)
 
-        for i in range(2, len(sentences)):
+        for i in range(1, len(sentences)):
             p = slide2.shapes.placeholders[1].text_frame.add_paragraph()
             p.text = sentences[i]
             p.level = 0
             # font style for bullet
-            customizer_bullet_point(slide2, 1, i-1, 'Arial', 28, False, bullet_color)
+            customizer_bullet_point(slide2, 1, i, 'Arial', 28, False, bullet_color)
 
         # font style for title
         customizer_topics(slide2, 0, 'Arial', 36, True, bullet_title_color)
@@ -171,7 +171,7 @@ def create_presentation_themechange(prs,data_dict, presentation_title, presentat
         
         prsentation_content = data_dict[title]
         sentences = split_sentences(prsentation_content)
-        slide2.shapes.placeholders[1].text_frame.text = sentences[1]
+        slide2.shapes.placeholders[1].text_frame.text = sentences[0]
 
         slide2.placeholders[1].height = Inches(4.84)
         slide2.placeholders[1].width = Inches(12.36)
@@ -180,12 +180,12 @@ def create_presentation_themechange(prs,data_dict, presentation_title, presentat
 
         customizer_bullet_point(slide2, 1, 0, 'Arial', 28, False, bullet_color)
 
-        for i in range(2, len(sentences)):
+        for i in range(1, len(sentences)):
             p = slide2.shapes.placeholders[1].text_frame.add_paragraph()
             p.text = sentences[i]
             p.level = 0
             # font style for bullet
-            customizer_bullet_point(slide2, 1, i-1, 'Arial', 28, False, bullet_color)
+            customizer_bullet_point(slide2, 1, i, 'Arial', 28, False, bullet_color)
 
         # font style for title
         customizer_topics(slide2, 0, 'Arial', 36, True, bullet_title_color)
