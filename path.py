@@ -5,14 +5,14 @@
 # image_path = r"C:\Users\ACER\Desktop\Presentify_webapp\images"
 
 #atul path
-temp_path = r"C:\Users\atuls\OneDrive\Desktop\final project\Presentify_webapp\temp_pdf.pdf"
-slides_path = r"C:\Users\atuls\OneDrive\Desktop\final project\Presentify_webapp\slides"
-display_path = r"C:\Users\atuls\OneDrive\Desktop\final project\Presentify_webapp\display"
-image_path = r"C:\Users\atuls\OneDrive\Desktop\final project\Presentify_webapp\images"
+# temp_path = r"C:\Users\atuls\OneDrive\Desktop\final project\Presentify_webapp\temp_pdf.pdf"
+# slides_path = r"C:\Users\atuls\OneDrive\Desktop\final project\Presentify_webapp\slides"
+# display_path = r"C:\Users\atuls\OneDrive\Desktop\final project\Presentify_webapp\display"
+# image_path = r"C:\Users\atuls\OneDrive\Desktop\final project\Presentify_webapp\images"
 
 #add path and comment others if wanted
 #Nischal path
-# temp_path = r"C:\Users\nisch\OneDrive\Desktop\Presentify\Presentify_webapp\temp_pdf.pdf"
-# slides_path = r"C:\Users\nisch\OneDrive\Desktop\Presentify\Presentify_webapp\slides"
-# display_path = r"C:\Users\nisch\OneDrive\Desktop\Presentify\Presentify_webapp\display"
-# image_path = r"C:\Users\nisch\OneDrive\Desktop\Presentify\Presentify_webapp\display\images"
+temp_path = r"C:\Users\nisch\OneDrive\Desktop\Presentify\Presentify_webapp\temp_pdf.pdf"
+slides_path = r"C:\Users\nisch\OneDrive\Desktop\Presentify\Presentify_webapp\slides"
+display_path = r"C:\Users\nisch\OneDrive\Desktop\Presentify\Presentify_webapp\display"
+image_path = r"C:\Users\nisch\OneDrive\Desktop\Presentify\Presentify_webapp\display\images"
