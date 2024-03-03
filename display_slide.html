@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Generated Slides</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+  </head>
+<body>
+<button class="button back-button" id="back-button" onclick="goBack()">Go Back</button>
+<div id="image-container">
+  <img id="slider-image" src="" alt="Image" onchange="showImage(1)"/>
+  <div class="buttons">
+      <div class="next-prev">
+          <button class="button" onclick="prevImage()">Prev</button>
+          <button class="button" onclick="nextImage()">Next</button>
+      </div>
+  </div>
+</div>
+<div class="image-container">
+  <img src="themeimage/default.png" class="image" onclick="setImage('default')">
+  <img src="themeimage/theme1.png" class="image" onclick="setImage('theme1')">
+  <img src="themeimage/theme2.png" class="image" onclick="setImage('theme2')">
+  <img src="themeimage/theme3.png" class="image" onclick="setImage('theme3')">
+  <img src="themeimage/theme4.png" class="image" onclick="setImage('theme4')">
+  <img src="themeimage/theme5.png" class="image" onclick="setImage('theme5')">
+  <img src="themeimage/theme6.png" class="image" onclick="setImage('theme6')">
+  <img src="themeimage/theme7.png" class="image" onclick="setImage('theme7')">
+ 
+</div>
+</div>
+<button class="download-btn" onclick="downloadPPTXFiles()">Download</button>
+</div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
