@@ -7,7 +7,7 @@ def display_slides():
 
     # Specify the full path to the PowerPoint presentation
     for root,dir,files in os.walk('slides'):
-        presentation_path = path.slides_path+f"\{create_presentation.presentation_filename}"
+        presentation_path = path.slides_path+f"\{files[0]}"
     print(presentation_path)
     # Create a PowerPoint application object
     Application = win32com.client.Dispatch("PowerPoint.Application")
