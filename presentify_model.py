@@ -7,7 +7,7 @@ from nltk.tokenize import word_tokenize
 # nltk.download('punkt')
 stop_words = ['a', 'an', 'the']
 
-model = "atulxop/deployment_model"
+model = "Yugratna/PresentifyModel"
 summarizer = pipeline("summarization", model=model)
 
 
