@@ -14,15 +14,17 @@
   <body>
     <div id="mySidenav" class="sidenav">
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"
-        >&times;</a
+      >&times;</a
       >
+      <button class="button back-button" id="back-button" onclick="goBack()">Go Back</button>
       <div id="image-container">
         <img id="slider-image" src=""alt="Image" />
         <div class="buttons">
-            <div class="next-prev">
-                <button class="button" onclick="prevImage()">Prev</button>
-                <button class="button" onclick="nextImage()">Next</button>
-            </div>
+          <div class="next-prev">
+            <button class="button" onclick="prevImage()">Prev</button>
+            <button class="button" onclick="nextImage()">Next</button>
+          </div>
+          <button class="download-btn" onclick="downloadPPTXFiles()">Download</button>
         </div>
     </div>
     <div class="image-container">
@@ -37,7 +39,6 @@
      
   </div>
     </div>
-
     <div class="top-left">
       <span style="  font-size: 30px; cursor: pointer" onclick="openNav()">
         &#9776;
@@ -61,7 +62,7 @@
         <section class="progress-area"></section>
         <section class="uploaded-area"></section>
         <button class="colorful btnsub" type="submit" onclick="submission()">
-          submit
+          Generate Presentation
         </button>
       </div>
       <div class="active-section colorful" id="file-uploader1">

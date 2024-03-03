@@ -369,9 +369,9 @@ img {
 }
 
 .back-button{
-  position: fixed;
+  position: absolute;
   top: 1vw;
-  right: 2vw;
+  right: 1vw;
   z-index: 9999; /* to ensure it's on top of other content */
 }
 
@@ -387,10 +387,11 @@ img {
   border-radius: 5px;
   cursor: pointer;
   transition: all 0.3s ease;
-  position: fixed;
-  top: 80vh;
-  left: 35%;
+  position: absolute;
+  top: 60vh;
+  right: 31%;
   transform: translateX(-50%);
+  z-index: 9999;
 }
 
 .download-btn:hover {

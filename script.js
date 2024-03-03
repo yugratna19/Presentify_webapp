@@ -282,3 +282,30 @@ fileInput.onchange = ({ target }) => {
 function goBack() {
   window.location.href = "index.html";
 }
+
+function downloadPPTXFiles() {
+  const folderPath = "slides/"; // Replace with the actual folder path
+
+  fetch(folderPath)
+    .then(response => response.text())
+    .then(text => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(text, "text/html");
+
+      const links = doc.querySelectorAll("a[href$='.pptx']");
+
+      links.forEach(link => {
+        const url = new URL(link.href, window.location.origin);
+        const filename = url.pathname.split("/").pop();
+
+        const downloadLink = document.createElement("a");
+        downloadLink.href = url.href;
+        downloadLink.download = filename;
+        downloadLink.click();
+
+      });
+    })
+    .catch(error => {
+      console.error("Error fetching folder content:", error);
+    });
+}
