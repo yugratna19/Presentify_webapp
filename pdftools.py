@@ -23,6 +23,15 @@ def read_pdf(pdf_path):
 
 
 def read_pdf_from_url(pdf_url):
+    files = glob.glob('images/*')
+    for f in files: 
+        os.remove(f)
+    files =  glob.glob('display/*')
+    for f in files:
+        os.remove(f)
+    files = glob.glob('slides/*')
+    for f in files:
+        os.remove(f)
     response = requests.get(pdf_url)
     response.raise_for_status()
     pdf_document = fitz.open(stream=response.content, filetype="pdf")

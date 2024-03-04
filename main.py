@@ -2,6 +2,7 @@ import pdftitle
 import pdfplumber
 import path
 import pptx
+import io
 
 from bs4 import BeautifulSoup
 from fastapi.middleware.cors import CORSMiddleware
@@ -107,21 +108,29 @@ async def theme_select(theme_data: ThemeSelectData):
     return {"message": "Slide Created in: {}".format(selected_theme)}
 
 @app.post("/get_data_from_url")
-async def get_data_fromI_url(url: str):
-    if 'https://arxiv.org/abs' in url:
+async def get_data_fromI_url(arxiv_url: str):
+    if 'https://arxiv.org/abs' in arxiv_url:
         print("Starting Website.....")
-        response = requests.get(url)
+        response = requests.get(arxiv_url)
         response = response.content
         soup = BeautifulSoup(response, 'html.parser')
 
         presentation.title =  soup.find('h1', class_='title mathjax').text
         presentation.author = soup.find('div', class_='authors').text
-        pdf_link = url.replace('abs', 'pdf')
+        pdf_link = arxiv_url.replace('abs', 'pdf')
         presentation.title = presentation.title.replace('Title:','')
         presentation.author = presentation.author.replace('Authors:','')
         pdf.textdata = clean_text(read_pdf_from_url(pdf_link))
+        response = requests.get(url=pdf_link)
+        pdf_bytes = response.content
+        with open('temp_pdf.pdf', 'wb') as f:
+            f.write(pdf_bytes)
     else:
-        pdf_link = url
+        pdf_link = arxiv_url
+        response = requests.get(url=pdf_link)
+        pdf_bytes = response.content
+        with open('temp_pdf.pdf', 'wb') as f:
+            f.write(pdf_bytes)
         pdf.textdata = clean_text(read_pdf_from_url(pdf_link))
         presentation.title = pdftitle.get_title_from_file('temp_pdf.pdf')
         presentation.author = pdfplumber.open('temp_pdf.pdf').metadata['Author']
@@ -136,8 +145,27 @@ async def get_data_fromI_url(url: str):
         presentation.conclusions = gemini_data.conclusions
     except:
         return {'error':'couldnt extract data'}
+    # data = PresentationData()
+    # data = summarize(gemini_data)
+    # data_dict = {'Introduction': data.introduction,
+    #              'Literature Review': data.literature_review,
+    #              'Methodology': data.methodology,
+    #              'Results': data.results,
+    #              'Conclusion': data.conclusions}
+    # image_caption_list = image_extraction(path.temp_path)
+    # if image_caption_list != []:
+    #     similarity = cosine_similarity(data_dict, image_caption_list)
+    #     filtered_similarity = [item for item in similarity if all(value > 0.25 for value in item.values())]
+    # else:
+    #     filtered_similarity =[]
+    # theme_select_path = r'theme\default.pptx'    
+    # prs = pptx.Presentation(theme_select_path)
+    # create_presentation(prs,data_dict, presentation.title,presentation.author, filtered_similarity)
+    # display_slides()
+    # return {"message": "Default Slide created successfully!"}
     data = PresentationData()
     data = summarize(gemini_data)
+    presentation1 = data
     data_dict = {'Introduction': data.introduction,
                  'Literature Review': data.literature_review,
                  'Methodology': data.methodology,
@@ -149,9 +177,11 @@ async def get_data_fromI_url(url: str):
         filtered_similarity = [item for item in similarity if all(value > 0.25 for value in item.values())]
     else:
         filtered_similarity =[]
+    imgcap.imgcap = filtered_similarity
     theme_select_path = r'theme\default.pptx'    
-    prs = pptx.Presentation(theme_select_path)
-    create_presentation(prs,data_dict, presentation.title,presentation.author, filtered_similarity)
+    prs1 = pptx.Presentation(theme_select_path)
+    create_presentation(prs1,data_dict, presentation.title,presentation.author, filtered_similarity)
     display_slides()
     return {"message": "Default Slide created successfully!"}
+
 

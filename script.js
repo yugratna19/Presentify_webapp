@@ -109,15 +109,21 @@ const userInputField = document.getElementById("arxivLink");
 
 form1.addEventListener("submit", (event) => {
   const userInput = userInputField.value.trim(); // Trim extra spaces
-
-  // Validate user input if necessary (e.g., check for invalid characters)
-
-  // Determine the appropriate action URL based on user input
-  
-  // Set the form's action attribute to the chosen URL
+  loadingScreen = document.getElementById("loading_screen");
   form1.action =
-    "http://127.0.0.1:8000/get_data_from_url?arxiv_url=" + userInput;
-
+  "http://127.0.0.1:8000/get_data_from_url?arxiv_url=" + userInput;
+  
+  loadingScreen.style.display = "flex";
+    window.addEventListener('message', function(event) {
+      const message = JSON.parse(event.data);
+      // Check if the message is the one you're expecting
+      if (message.message === 'Default Slide created successfully!') {
+        // Hide the loading screen
+        loadingScreen.style.display = "none";
+        openNav();
+        // window.location.href = "index.html"
+      }
+    });
   // Optionally, prevent default form submission to allow further processing
   // if needed (e.g., for AJAX requests)
   // event.preventDefault();
@@ -175,6 +181,7 @@ let numImages = 0;
 
 // Fetch the images from the folder
 function fetchImages() {
+  // openNav();
   fetch(folderPath)
     .then((response) => response.text())
     .then((data) => {
@@ -238,7 +245,9 @@ function setImage(imageName) {
   })
   .then(response => response.json())
   .then(data => {
+    if(data)
     console.log("Response from server:", data);
+    openNav();
   })
   .catch(error => console.error("Error:", error));
 }
@@ -281,6 +290,7 @@ fileInput.onchange = ({ target }) => {
 };
 
 function goBack() {
+  closeNav()
   window.location.href = "index.html";
 }
 
