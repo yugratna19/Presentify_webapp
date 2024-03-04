@@ -109,6 +109,7 @@ async def theme_select(theme_data: ThemeSelectData):
 @app.post("/get_data_from_url")
 async def get_data_fromI_url(url: str):
     if 'https://arxiv.org/abs' in url:
+        print("Starting Website.....")
         response = requests.get(url)
         response = response.content
         soup = BeautifulSoup(response, 'html.parser')
@@ -152,5 +153,5 @@ async def get_data_fromI_url(url: str):
     prs = pptx.Presentation(theme_select_path)
     create_presentation(prs,data_dict, presentation.title,presentation.author, filtered_similarity)
     display_slides()
-    return {"message": "Slide created successfully!"}
+    return {"message": "Default Slide created successfully!"}
 

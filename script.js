@@ -113,7 +113,7 @@ form1.addEventListener("submit", (event) => {
   // Validate user input if necessary (e.g., check for invalid characters)
 
   // Determine the appropriate action URL based on user input
-
+  
   // Set the form's action attribute to the chosen URL
   form1.action =
     "http://127.0.0.1:8000/get_data_from_url?arxiv_url=" + userInput;
@@ -244,15 +244,16 @@ function setImage(imageName) {
 }
 function submission() {
   loadingScreen = document.getElementById("loading_screen");
-  loadingScreen.style.display = "flex";
   form.action = "http://127.0.0.1:8000/extract-text";
   form.submit();
+  loadingScreen.style.display = "flex";
   window.addEventListener('message', function(event) {
       const message = JSON.parse(event.data);
       // Check if the message is the one you're expecting
       if (message.message === 'Default Slide created successfully!') {
         // Hide the loading screen
         loadingScreen.style.display = "none";
+        // window.location.href = "index.html"
       }
     });
 }
