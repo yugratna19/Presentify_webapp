@@ -57,6 +57,10 @@ The proposal and the report of the project can be found in this [link](https://d
   <img src="ss4.png" alt="Output Slide 4">
 </div>
 
+## Demo
+
+[![Watch the video](https://img.youtube.com/vi/T-D1KVIuvjA/maxresdefault.jpg)](https://youtu.be/OEIxD0-_IDM)
+
 ## Authors
 
 - [@Atul Shreewastav](https://github.com/AtuLxCE)
