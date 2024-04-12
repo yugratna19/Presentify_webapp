@@ -50,10 +50,12 @@ The proposal and the report of the project can be found in this [link](https://d
 
 
 ## Output
-!["output slide 1"](ss for readme\ss1.png)
-!["output slide 2"](ss2.png)
-!["output slide 3"](ss3.png)
-!["output slide 4"](ss4.png)
+<div align="center">
+  <img src="ss1.png" alt="Output Slide 1" width="200">
+  <img src="ss2.png" alt="Output Slide 2" width="200">
+  <img src="ss3.png" alt="Output Slide 3" width="200">
+  <img src="ss4.png" alt="Output Slide 4" width="200">
+</div>
 
 ## Authors
 
