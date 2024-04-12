@@ -59,7 +59,7 @@ The proposal and the report of the project can be found in this [link](https://d
 
 ## Demo
 
-[![Watch the video](https://img.youtube.com/vi/T-D1KVIuvjA/maxresdefault.jpg)](https://youtu.be/OEIxD0-_IDM)
+[![Watch the video](https://img.youtube.com/vi/OEIxD0-_IDM/maxresdefault.jpg)](https://youtu.be/OEIxD0-_IDM)
 
 ## Authors
 
