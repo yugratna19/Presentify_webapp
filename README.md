@@ -53,8 +53,9 @@ The proposal and the report of the project can be found in this [link](https://d
 !["output slide 1"](ss1.png)
 !["output slide 2"](ss2.png)
 !["output slide 3"](ss3.png)
-!["output slide 4"](ss4.png)
-
+<div style="text-align: center;">
+  !["output slide 4"](ss4.png" style="width: 50%;")
+</div>
 
 ## Authors
 
